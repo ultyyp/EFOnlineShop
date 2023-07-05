@@ -41,7 +41,7 @@ app.MapGet("/get_products", async (AppDbContext context)
    => await context.Products.ToListAsync());
 
 //R
-app.MapGet("/get_product", GetProduct);
+app.MapGet("/get_product", GetProductById);
 
 //U
 app.MapPost("/update_product", UpdateProduct);
@@ -56,7 +56,7 @@ async Task AddProduct(AppDbContext db, Product product)
 	await db.SaveChangesAsync();
 }
 
-async Task<Product> GetProduct(AppDbContext db, Guid productId)
+async Task<Product> GetProductById(AppDbContext db, Guid productId)
 {
 	var prod = await db.Products.FirstAsync(p => p.Id == productId);
 	return prod;
