@@ -44,7 +44,7 @@ app.MapGet("/get_products", async (AppDbContext context)
 app.MapPost("/update_product", UpdateProduct);
 
 //D
-app.MapDelete("/delete_product", DeleteProduct);
+app.MapPost("/delete_product", DeleteProduct);
 
 
 
