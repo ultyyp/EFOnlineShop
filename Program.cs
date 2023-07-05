@@ -73,7 +73,7 @@ async Task UpdateProduct(HttpContext context, AppDbContext db, Guid productId, P
 	}
 	else
 	{
-		context.Response.StatusCode = 400;
+		context.Response.StatusCode = 404;
 	}
 
 }
@@ -88,7 +88,7 @@ async Task DeleteProduct(HttpContext context, AppDbContext db, Guid productId)
 	}
 	else
 	{
-		context.Response.StatusCode = 400;
+		context.Response.StatusCode = 404;
 	}
 }
 
