@@ -1,6 +1,6 @@
+using EFOnlineShop.Data;
+using EFOnlineShop.Entities;
 using Microsoft.EntityFrameworkCore;
-using OnlineShopBackend.Data;
-using OnlineShopBackend.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,6 +40,9 @@ app.MapPost("/add_product", AddProduct);
 app.MapGet("/get_products", async (AppDbContext context)
    => await context.Products.ToListAsync());
 
+//R
+app.MapGet("/get_product", GetProduct);
+
 //U
 app.MapPost("/update_product", UpdateProduct);
 
@@ -53,7 +56,14 @@ async Task AddProduct(AppDbContext db, Product product)
 	await db.SaveChangesAsync();
 }
 
-async Task UpdateProduct(AppDbContext db, Guid productId, Product product)
+async Task<Product> GetProduct(AppDbContext db, Guid productId)
+{
+	var prod = await db.Products.FirstAsync(p => p.Id == productId);
+	return prod;
+}
+
+
+async Task UpdateProduct(HttpContext context, AppDbContext db, Guid productId, Product product)
 {
 	var prod = await db.Products.SingleOrDefaultAsync(p => p.Id == productId);
 	if(prod!=null)
@@ -61,15 +71,24 @@ async Task UpdateProduct(AppDbContext db, Guid productId, Product product)
 		db.Entry(prod).CurrentValues.SetValues(product);
 		await db.SaveChangesAsync();
 	}
+	else
+	{
+		context.Response.StatusCode = 400;
+	}
+
 }
 
-async Task DeleteProduct(AppDbContext db, Guid productId)
+async Task DeleteProduct(HttpContext context, AppDbContext db, Guid productId)
 {
 	var prod = await db.Products.SingleOrDefaultAsync(p => p.Id == productId);
 	if(prod != null)
 	{
 		db.Products.Remove(prod);
 		await db.SaveChangesAsync();
+	}
+	else
+	{
+		context.Response.StatusCode = 400;
 	}
 }
 

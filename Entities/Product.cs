@@ -1,4 +1,4 @@
-﻿namespace OnlineShopBackend.Entities
+﻿namespace EFOnlineShop.Entities
 {
 	public class Product
 	{

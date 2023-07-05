@@ -1,7 +1,7 @@
-﻿namespace OnlineShopBackend.Data
+﻿namespace EFOnlineShop.Data
 {
+	using EFOnlineShop.Entities;
 	using Microsoft.EntityFrameworkCore;
-	using OnlineShopBackend.Entities;
 
 	public class AppDbContext : DbContext
 	{

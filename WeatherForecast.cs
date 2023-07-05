@@ -1,4 +1,4 @@
-namespace OnlineShopBackend
+namespace EFOnlineShop
 {
 	public class WeatherForecast
 	{

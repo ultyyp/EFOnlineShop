@@ -1,7 +1,7 @@
+using EFOnlineShop;
 using Microsoft.AspNetCore.Mvc;
-using OnlineShopBackend;
 
-namespace OnlineShopBackend.Controllers
+namespace EFOnlineShop.Controllers
 {
 	[ApiController]
 	[Route("[controller]")]
