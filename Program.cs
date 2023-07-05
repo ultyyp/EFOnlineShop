@@ -1,6 +1,6 @@
-using EFOnlineShop.Data;
-using EFOnlineShop.Entities;
 using Microsoft.EntityFrameworkCore;
+using OnlineShopBackend.Data;
+using OnlineShopBackend.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -47,34 +47,30 @@ app.MapPost("/update_product", UpdateProduct);
 app.MapPost("/delete_product", DeleteProduct);
 
 
-
 async Task AddProduct(AppDbContext db, Product product)
 {
-	ArgumentNullException.ThrowIfNull(db, nameof(db));
-	ArgumentNullException.ThrowIfNull(product, nameof(product));
-
 	await db.Products.AddAsync(product);
 	await db.SaveChangesAsync();
 }
 
 async Task UpdateProduct(AppDbContext db, Guid productId, Product product)
 {
-	ArgumentNullException.ThrowIfNull(db, nameof(db));
-	ArgumentNullException.ThrowIfNull(productId, nameof(productId));
-	ArgumentNullException.ThrowIfNull(product, nameof(product));
-
 	var prod = await db.Products.SingleOrDefaultAsync(p => p.Id == productId);
-	db.Entry(prod).CurrentValues.SetValues(product);
-	await db.SaveChangesAsync();
+	if(prod!=null)
+	{
+		db.Entry(prod).CurrentValues.SetValues(product);
+		await db.SaveChangesAsync();
+	}
 }
 
 async Task DeleteProduct(AppDbContext db, Guid productId)
 {
-	ArgumentNullException.ThrowIfNull(db, nameof(db));
-	ArgumentNullException.ThrowIfNull(productId, nameof(productId));
-
-	db.Products.Remove(await db.Products.SingleOrDefaultAsync(p => p.Id == productId));
-	await db.SaveChangesAsync();
+	var prod = await db.Products.SingleOrDefaultAsync(p => p.Id == productId);
+	if(prod != null)
+	{
+		db.Products.Remove(prod);
+		await db.SaveChangesAsync();
+	}
 }
 
 

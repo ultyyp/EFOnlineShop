@@ -1,9 +1,9 @@
-﻿namespace EFOnlineShop.Data
+﻿namespace OnlineShopBackend.Data
 {
-    using EFOnlineShop.Entities;
-    using Microsoft.EntityFrameworkCore;
+	using Microsoft.EntityFrameworkCore;
+	using OnlineShopBackend.Entities;
 
-    public class AppDbContext : DbContext
+	public class AppDbContext : DbContext
 	{
 		//Список таблиц:
 		public DbSet<Product> Products => Set<Product>();

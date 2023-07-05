@@ -1,9 +1,9 @@
-﻿namespace EFOnlineShop.Entities
+﻿namespace OnlineShopBackend.Entities
 {
-    public class Product
-    {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        public decimal Price { get; set; }
-    }
+	public class Product
+	{
+		public Guid Id { get; set; }
+		public string Name { get; set; }
+		public decimal Price { get; set; }
+	}
 }
