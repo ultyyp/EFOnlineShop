@@ -50,12 +50,19 @@ app.MapDelete("/delete_product", DeleteProduct);
 
 async Task AddProduct(AppDbContext db, Product product)
 {
+	ArgumentNullException.ThrowIfNull(db, nameof(db));
+	ArgumentNullException.ThrowIfNull(product, nameof(product));
+
 	await db.Products.AddAsync(product);
 	await db.SaveChangesAsync();
 }
 
 async Task UpdateProduct(AppDbContext db, Guid productId, Product product)
 {
+	ArgumentNullException.ThrowIfNull(db, nameof(db));
+	ArgumentNullException.ThrowIfNull(productId, nameof(productId));
+	ArgumentNullException.ThrowIfNull(product, nameof(product));
+
 	var prod = await db.Products.SingleOrDefaultAsync(p => p.Id == productId);
 	db.Entry(prod).CurrentValues.SetValues(product);
 	await db.SaveChangesAsync();
@@ -63,6 +70,9 @@ async Task UpdateProduct(AppDbContext db, Guid productId, Product product)
 
 async Task DeleteProduct(AppDbContext db, Guid productId)
 {
+	ArgumentNullException.ThrowIfNull(db, nameof(db));
+	ArgumentNullException.ThrowIfNull(productId, nameof(productId));
+
 	db.Products.Remove(await db.Products.SingleOrDefaultAsync(p => p.Id == productId));
 	await db.SaveChangesAsync();
 }
